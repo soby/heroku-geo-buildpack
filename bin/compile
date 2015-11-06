@@ -41,6 +41,7 @@ function download_package() {
 
   mkdir -p $location
   package="https://${S3_BUCKET}.s3.amazonaws.com/${STACK}/$name-$version.tgz"
+  echo "Downloading $package"
   curl $package -s -o - | tar xzf - -C $location
 }
 
