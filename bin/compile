@@ -98,6 +98,7 @@ done
 # App directories
 APP_VENDOR="/app/$TARGET_VENDOR_DIR"
 
+mkdir -p $APP_VENDOR
 cp -r $BUILD_DIR/$TARGET_VENDOR_DIR/* "$APP_VENDOR"
 
 # Setup environment variables
