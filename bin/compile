@@ -5,7 +5,7 @@
 set -e
 
 # Debug
-set -x
+# set -x
 
 # Clean up leaking environment
 unset GIT_DIR
@@ -41,7 +41,6 @@ function download_package() {
 
   mkdir -p $location
   package="https://${S3_BUCKET}.s3.amazonaws.com/${STACK}/$name-$version.tgz"
-  echo "Downloading $package"
   curl $package -s -o - | tar xzf - -C $location
 }
 
@@ -81,6 +80,8 @@ if [ ! -d $CACHE_DIR/$VENDORED_GDAL ]; then
   echo "-----> Fetching and vendoring gdal"
   rm -rf "$CACHE_DIR/vendor/gdal"
   download_package "gdal" "${GDAL_VERSION}" "${CACHE_DIR}/${VENDORED_GDAL}"
+  echo 'cache dir....'
+  ls "{CACHE_DIR}/${VENDORED_GDAL}"
 fi
 
 if [ ! -d $CACHE_DIR/$VENDORED_PROJ ]; then
@@ -94,6 +95,8 @@ TARGET_VENDOR_DIR=".heroku/vendor"
 for dir in $VENDORED_GEOS $VENDORED_GDAL $VENDORED_PROJ; do
   mkdir -p $BUILD_DIR/$TARGET_VENDOR_DIR
   cp -r $CACHE_DIR/$dir/* $BUILD_DIR/$TARGET_VENDOR_DIR &> /dev/null || true
+  echo $BUILD_DIR/$TARGET_VENDOR_DIR
+  ls $BUILD_DIR/$TARGET_VENDOR_DIR
 done
 
 # App directories
