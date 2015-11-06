@@ -81,7 +81,7 @@ if [ ! -d $CACHE_DIR/$VENDORED_GDAL ]; then
   rm -rf "$CACHE_DIR/vendor/gdal"
   download_package "gdal" "${GDAL_VERSION}" "${CACHE_DIR}/${VENDORED_GDAL}"
   echo 'cache dir....'
-  ls "${CACHE_DIR}/${VENDORED_GDAL}"
+  ls "${CACHE_DIR}/${VENDORED_GDAL}/lib"
 fi
 
 if [ ! -d $CACHE_DIR/$VENDORED_PROJ ]; then
