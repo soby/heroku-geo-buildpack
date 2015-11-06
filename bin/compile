@@ -80,8 +80,6 @@ if [ ! -d $CACHE_DIR/$VENDORED_GDAL ]; then
   echo "-----> Fetching and vendoring gdal"
   rm -rf "$CACHE_DIR/vendor/gdal"
   download_package "gdal" "${GDAL_VERSION}" "${CACHE_DIR}/${VENDORED_GDAL}"
-  echo 'cache dir....'
-  ls "${CACHE_DIR}/${VENDORED_GDAL}/lib"
 fi
 
 if [ ! -d $CACHE_DIR/$VENDORED_PROJ ]; then
@@ -95,12 +93,12 @@ TARGET_VENDOR_DIR=".heroku/vendor"
 for dir in $VENDORED_GEOS $VENDORED_GDAL $VENDORED_PROJ; do
   mkdir -p $BUILD_DIR/$TARGET_VENDOR_DIR
   cp -r $CACHE_DIR/$dir/* $BUILD_DIR/$TARGET_VENDOR_DIR &> /dev/null || true
-  echo $BUILD_DIR/$TARGET_VENDOR_DIR
-  ls $BUILD_DIR/$TARGET_VENDOR_DIR
 done
 
 # App directories
 APP_VENDOR="/app/$TARGET_VENDOR_DIR"
+
+cp -r "$BUILD_DIR/$TARGET_VENDOR_DIR/*" "$APP_VENDOR"
 
 # Setup environment variables
 set-env GEOS_LIBRARY_PATH "$APP_VENDOR/lib"
