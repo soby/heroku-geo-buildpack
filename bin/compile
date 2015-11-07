@@ -99,7 +99,8 @@ done
 APP_VENDOR="/app/$TARGET_VENDOR_DIR"
 
 mkdir -p $APP_VENDOR
-cp -r $BUILD_DIR/$TARGET_VENDOR_DIR/* "$APP_VENDOR"
+cp -r ${BUILD_DIR}/${TARGET_VENDOR_DIR}/* "$APP_VENDOR"
+ls ${APP_VENDOR}/lib
 
 # Setup environment variables
 set-env GEOS_LIBRARY_PATH "$APP_VENDOR/lib"
